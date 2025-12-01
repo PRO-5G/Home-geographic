@@ -21,6 +21,7 @@
             position: relative;
         }
         
+        /* СНЕГ НА ВСЁМ САЙТЕ */
         #snow-container {
             position: fixed;
             top: 0;
@@ -40,11 +41,10 @@
         }
         
         @keyframes fall {
-            to {
-                transform: translateY(100vh) rotate(360deg);
-            }
+            to { transform: translateY(100vh) rotate(360deg); }
         }
         
+        /* КОНТЕЙНЕР */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -53,6 +53,110 @@
             z-index: 2;
         }
         
+        /* ШАПКА С АККАУНТОМ */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            background: linear-gradient(to right, #ffaf40, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .brand-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+        }
+        
+        /* ИКОНКА АККАУНТА */
+        .account-section {
+            position: relative;
+        }
+        
+        .account-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+        
+        .account-btn:hover {
+            background: rgba(255, 175, 64, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        .account-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 10px;
+            background: rgba(30, 30, 50, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            padding: 15px;
+            min-width: 200px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 1000;
+        }
+        
+        .account-menu.show {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .menu-item {
+            padding: 12px 15px;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .menu-item:hover {
+            background: rgba(255, 175, 64, 0.2);
+        }
+        
+        .user-role {
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        
+        /* ОСНОВНАЯ ШАПКА */
         .header {
             text-align: center;
             padding: 60px 20px;
@@ -65,18 +169,9 @@
             animation: fadeIn 1s ease-out;
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .logo {
+        .main-logo {
             font-size: 4rem;
             margin-bottom: 20px;
-            background: linear-gradient(to right, #ffaf40, #ff6b6b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         
         .title {
@@ -93,6 +188,7 @@
             line-height: 1.6;
         }
         
+        /* КАРТОЧКИ С АНИМИРОВАННЫМ ФОНОМ */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -101,6 +197,7 @@
         }
         
         .project-card {
+            position: relative;
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(12px);
             border-radius: 25px;
@@ -111,16 +208,93 @@
             opacity: 0;
             transform: translateY(30px);
             animation: cardAppear 0.6s forwards;
+            overflow: hidden;
+        }
+        
+        /* АНИМИРОВАННЫЙ ФОН КАРТОЧКИ */
+        .weather-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+        }
+        
+        .weather-particle {
+            position: absolute;
+            animation-duration: 3s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+        
+        .snow-particle {
+            background: white;
+            border-radius: 50%;
+            animation-name: snowFall;
+        }
+        
+        .rain-particle {
+            background: #00ccff;
+            animation-name: rainFall;
+        }
+        
+        .sun-ray {
+            background: radial-gradient(circle, #ffeb3b, transparent 70%);
+            animation-name: sunPulse;
+            border-radius: 50%;
+        }
+        
+        .cloud-particle {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            animation-name: cloudMove;
+        }
+        
+        .thunder-particle {
+            background: #ffeb3b;
+            animation-name: thunderFlash;
+            opacity: 0;
+        }
+        
+        @keyframes snowFall {
+            0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(150px) rotate(360deg); opacity: 0; }
+        }
+        
+        @keyframes rainFall {
+            0% { transform: translateY(-20px); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(150px); opacity: 0; }
+        }
+        
+        @keyframes sunPulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.2); opacity: 0.5; }
+        }
+        
+        @keyframes cloudMove {
+            0% { transform: translateX(-50px); opacity: 0; }
+            20%, 80% { opacity: 0.7; }
+            100% { transform: translateX(400px); opacity: 0; }
+        }
+        
+        @keyframes thunderFlash {
+            0%, 90% { opacity: 0; }
+            95%, 100% { opacity: 1; }
         }
         
         .project-card:nth-child(1) { animation-delay: 0.1s; }
         .project-card:nth-child(2) { animation-delay: 0.2s; }
+        .project-card:nth-child(3) { animation-delay: 0.3s; }
         
         @keyframes cardAppear {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .project-card:hover {
@@ -198,11 +372,16 @@
             box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3);
         }
         
-        .card-link.secondary {
+        .card-link.weather {
             background: linear-gradient(to right, #2196F3, #0D47A1);
+        }
+        
+        .card-link.secondary {
+            background: linear-gradient(to right, #ff6b6b, #ff4757);
             margin-top: 10px;
         }
         
+        /* ФУТЕР */
         .footer {
             text-align: center;
             padding: 50px 20px;
@@ -251,37 +430,205 @@
             margin-top: 30px;
         }
         
+        /* МОДАЛЬНЫЕ ОКНА */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s;
+        }
+        
+        .modal-content {
+            background: rgba(30, 30, 50, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-title {
+            color: #ffaf40;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #aaa;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #ffaf40;
+        }
+        
+        .form-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .modal-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .modal-btn.primary {
+            background: linear-gradient(to right, #4CAF50, #2E7D32);
+            color: white;
+        }
+        
+        .modal-btn.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .modal-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* АДАПТИВ */
         @media (max-width: 768px) {
             .title { font-size: 2.2rem; }
             .subtitle { font-size: 1rem; }
             .projects-grid { grid-template-columns: 1fr; }
             .card-title { font-size: 1.5rem; }
-        }
-        
-        .floating {
-            animation: floating 3s ease-in-out infinite;
-        }
-        
-        @keyframes floating {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            .top-bar { flex-direction: column; gap: 20px; }
+            .account-menu { right: auto; left: 0; }
         }
     </style>
 </head>
 <body>
+    <!-- СНЕГ НА ВСЁМ САЙТЕ -->
     <div id="snow-container"></div>
     
+    <!-- МОДАЛЬНЫЕ ОКНА -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <h2 class="modal-title">Регистрация</h2>
+            <p style="text-align: center; color: #ff6b6b; margin-bottom: 25px;">
+                ⚠️ Регистрация временно недоступна
+            </p>
+            <p style="color: #aaa; text-align: center; margin-bottom: 30px;">
+                Система регистрации находится в разработке. 
+                Попробуйте войти в один из тестовых аккаунтов.
+            </p>
+            <div class="form-buttons">
+                <button class="modal-btn secondary" onclick="closeModal('registerModal')">Закрыть</button>
+                <button class="modal-btn primary" onclick="switchToLogin()">Войти</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <h2 class="modal-title">Вход в аккаунт</h2>
+            <div class="form-group">
+                <label class="form-label">Логин</label>
+                <input type="text" class="form-input" id="loginInput" placeholder="Введите логин">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Пароль</label>
+                <input type="password" class="form-input" id="passwordInput" placeholder="Введите пароль">
+            </div>
+            <p id="loginError" style="color: #ff6b6b; text-align: center; margin: 15px 0; display: none;">
+                Неверный логин или пароль
+            </p>
+            <div class="form-buttons">
+                <button class="modal-btn secondary" onclick="closeModal('loginModal')">Отмена</button>
+                <button class="modal-btn primary" onclick="attemptLogin()">Войти</button>
+            </div>
+            <p style="color: #777; font-size: 0.9rem; margin-top: 25px; text-align: center;">
+                Тестовые аккаунты:<br>
+                • OWNER / пароль: <code>Admin887!!</code><br>
+                • Moderator / пароль: <code>Mod887##</code>
+            </p>
+        </div>
+    </div>
+    
+    <!-- ОСНОВНОЙ КОНТЕНТ -->
     <div class="container">
-        <header class="header floating">
-            <div class="logo">🌍</div>
+        <!-- ВЕРХНЯЯ ПАНЕЛЬ С АККАУНТОМ -->
+        <div class="top-bar">
+            <div class="logo-section">
+                <div class="logo">🌍</div>
+                <div class="brand-name">Interactive887</div>
+            </div>
+            
+            <div class="account-section">
+                <button class="account-btn" onclick="toggleAccountMenu()">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="accountText">Аккаунт</span>
+                </button>
+                <div class="account-menu" id="accountMenu">
+                    <div class="menu-item" onclick="openModal('registerModal')">
+                        <i class="fas fa-user-plus"></i> Зарегистрироваться
+                    </div>
+                    <div class="menu-item" onclick="openModal('loginModal')">
+                        <i class="fas fa-sign-in-alt"></i> Войти
+                    </div>
+                    <div id="adminSection" style="display: none;">
+                        <hr style="border-color: rgba(255,255,255,0.1); margin: 10px 0;">
+                        <div class="menu-item">
+                            <i class="fas fa-crown"></i> Панель управления
+                        </div>
+                        <div class="menu-item">
+                            <i class="fas fa-users-cog"></i> Управление пользователями
+                        </div>
+                        <div class="menu-item" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i> Выйти
+                        </div>
+                        <div class="user-role" id="userRole"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ОСНОВНАЯ ШАПКА -->
+        <header class="header">
+            <div class="main-logo">🌐</div>
             <h1 class="title">Interactive887</h1>
             <p class="subtitle">
                 Интерактивные географические проекты, объединяющие физические карты с цифровым контентом через QR-коды
             </p>
         </header>
         
+        <!-- КАРТОЧКИ С АНИМИРОВАННЫМ ФОНОМ -->
         <div class="projects-grid">
-            <div class="project-card">
+            <div class="project-card" id="card1">
+                <div class="weather-bg" id="weatherBg1"></div>
                 <div class="card-header">
                     <div class="card-icon">🇦🇺</div>
                     <div>
@@ -299,12 +646,37 @@
                     <li>Upd Log при первом посещении</li>
                     <li>Кнопка "Домой" для навигации</li>
                 </ul>
-                <a href="https://pro-5g.github.io/australia887/" class="card-link" target="_blank">
+                <a href="https://pro-5g.github.io/Australia-map/" class="card-link" target="_blank">
                     <i class="fas fa-external-link-alt"></i> Открыть карту
                 </a>
             </div>
             
-            <div class="project-card">
+            <div class="project-card" id="card2">
+                <div class="weather-bg" id="weatherBg2"></div>
+                <div class="card-header">
+                    <div class="card-icon">🌤️</div>
+                    <div>
+                        <h2 class="card-title">Мировая погода</h2>
+                        <p class="card-subtitle">10 стран • Реальные данные • API</p>
+                    </div>
+                </div>
+                <p class="card-description">
+                    Актуальная погода в крупнейших странах мира с реальными данными метеорологических API. 
+                    Обновляется каждые 15 минут.
+                </p>
+                <ul class="card-features">
+                    <li>Данные Open-Meteo API</li>
+                    <li>10 крупнейших стран</li>
+                    <li>Автообновление</li>
+                    <li>Адаптивный дизайн</li>
+                </ul>
+                <a href="https://pro-5g.github.io/weather887/" class="card-link weather" target="_blank">
+                    <i class="fas fa-cloud-sun"></i> Открыть погоду
+                </a>
+            </div>
+            
+            <div class="project-card" id="card3">
+                <div class="weather-bg" id="weatherBg3"></div>
                 <div class="card-header">
                     <div class="card-icon">🚀</div>
                     <div>
@@ -328,6 +700,7 @@
             </div>
         </div>
         
+        <!-- ФУТЕР -->
         <footer class="footer">
             <h2 class="footer-title">Присоединяйся к сообществу</h2>
             <p class="footer-text">
@@ -341,13 +714,22 @@
             </a>
             
             <div class="version-info">
-                <p>Interactive887 • Версия сайта 2.0 • <span id="currentDate"></span></p>
-                <p>Сделано с ❤️ для любителей географии и технологий</p>
+                <p>Interactive887 • Версия сайта 3.0 • <span id="currentDate"></span></p>
+                <p>Физические карты + Цифровой контент = Новый опыт</p>
             </div>
         </footer>
     </div>
 
     <script>
+        // ========== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ==========
+        let currentUser = null;
+        const accounts = {
+            'OWNER': { password: 'Admin887!!', role: 'ADMIN' },
+            'Moderator': { password: 'Mod887##', role: 'Moderator' }
+            'Учитель': { password: 'Mod887##', role: '✅' }
+        };
+
+        // ========== СНЕГ НА ВСЁМ САЙТЕ ==========
         function createSnow() {
             const container = document.getElementById('snow-container');
             const snowCount = window.innerWidth < 768 ? 50 : 100;
@@ -363,32 +745,167 @@
                 container.appendChild(flake);
             }
         }
+
+        // ========== АНИМИРОВАННЫЙ ФОН КАРТОЧЕК ==========
+        const weatherEffects = ['snow', 'rain', 'sun', 'cloud', 'thunder'];
         
+        function createWeatherEffect(cardId, effect) {
+            const bg = document.getElementById(`weatherBg${cardId}`);
+            bg.innerHTML = '';
+            
+            const particleCount = effect === 'sun' ? 1 : 
+                               effect === 'thunder' ? 2 : 15;
+            
+            for(let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = `weather-particle ${effect}-particle`;
+                
+                switch(effect) {
+                    case 'snow':
+                        particle.style.width = particle.style.height = 
+                            Math.random() * 8 + 4 + 'px';
+                        particle.style.left = Math.random() * 100 + '%';
+                        particle.style.animationDelay = Math.random() * 3 + 's';
+                        break;
+                        
+                    case 'rain':
+                        particle.style.width = '2px';
+                        particle.style.height = '15px';
+                        particle.style.left = Math.random() * 100 + '%';
+                        particle.style.animationDelay = Math.random() * 2 + 's';
+                        break;
+                        
+                    case 'sun':
+                        particle.style.width = particle.style.height = '100px';
+                        particle.style.top = '50%';
+                        particle.style.left = '50%';
+                        particle.style.transform = 'translate(-50%, -50%)';
+                        break;
+                        
+                    case 'cloud':
+                        particle.style.width = Math.random() * 60 + 40 + 'px';
+                        particle.style.height = Math.random() * 30 + 20 + 'px';
+                        particle.style.top = Math.random() * 70 + 10 + '%';
+                        particle.style.animationDelay = Math.random() * 5 + 's';
+                        break;
+                        
+                    case 'thunder':
+                        particle.style.width = '100%';
+                        particle.style.height = '100%';
+                        particle.style.animationDelay = Math.random() * 2 + 's';
+                        break;
+                }
+                
+                bg.appendChild(particle);
+            }
+        }
+
+        function rotateWeatherEffects() {
+            [1, 2, 3].forEach(cardId => {
+                const randomEffect = weatherEffects[
+                    Math.floor(Math.random() * weatherEffects.length)
+                ];
+                createWeatherEffect(cardId, randomEffect);
+            });
+            
+            setTimeout(rotateWeatherEffects, 8000); // Меняем каждые 8 секунд
+        }
+
+        // ========== СИСТЕМА АККАУНТОВ ==========
+        function toggleAccountMenu() {
+            const menu = document.getElementById('accountMenu');
+            menu.classList.toggle('show');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+            document.getElementById('accountMenu').classList.remove('show');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function switchToLogin() {
+            closeModal('registerModal');
+            openModal('loginModal');
+        }
+
+        function attemptLogin() {
+            const login = document.getElementById('loginInput').value.trim();
+            const password = document.getElementById('passwordInput').value;
+            const error = document.getElementById('loginError');
+            
+            if (accounts[login] && accounts[login].password === password) {
+                currentUser = { username: login, role: accounts[login].role };
+                localStorage.setItem('interactive887_user', JSON.stringify(currentUser));
+                
+                document.getElementById('accountText').textContent = login;
+                document.getElementById('userRole').textContent = currentUser.role;
+                document.getElementById('adminSection').style.display = 'block';
+                
+                closeModal('loginModal');
+                showNotification(`Добро пожаловать, ${login}!`);
+            } else {
+                error.style.display = 'block';
+                setTimeout(() => error.style.display = 'none', 3000);
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('interactive887_user');
+            
+            document.getElementById('accountText').textContent = 'Аккаунт';
+            document.getElementById('adminSection').style.display = 'none';
+            document.getElementById('accountMenu').classList.remove('show');
+            
+            showNotification('Вы вышли из аккаунта');
+        }
+
+        function showNotification(message) {
+            // Можно добавить красивые уведомления
+            alert(message);
+        }
+
+        function checkSavedUser() {
+            const saved = localStorage.getItem('interactive887_user');
+            if (saved) {
+                currentUser = JSON.parse(saved);
+                document.getElementById('accountText').textContent = currentUser.username;
+                document.getElementById('userRole').textContent = currentUser.role;
+                document.getElementById('adminSection').style.display = 'block';
+            }
+        }
+
+        // ========== ДАТА ==========
         function updateDate() {
             const now = new Date();
             const options = { day: 'numeric', month: 'long', year: 'numeric' };
-            document.getElementById('currentDate').textContent = now.toLocaleDateString('ru-RU', options);
+            document.getElementById('currentDate').textContent = 
+                now.toLocaleDateString('ru-RU', options);
         }
-        
-        function animateOnScroll() {
-            const cards = document.querySelectorAll('.project-card');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, { threshold: 0.1 });
-            cards.forEach(card => observer.observe(card));
-        }
-        
+
+        // ========== ЗАКРЫТИЕ МЕНЮ ПРИ КЛИКЕ ВНЕ ==========
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.account-section')) {
+                document.getElementById('accountMenu').classList.remove('show');
+            }
+        });
+
+        // ========== ЗАПУСК ВСЕГО ==========
         window.addEventListener('load', () => {
             createSnow();
             updateDate();
-            animateOnScroll();
+            checkSavedUser();
+            rotateWeatherEffects();
+            
+            // Начальные эффекты
+            createWeatherEffect(1, 'snow');
+            createWeatherEffect(2, 'sun');
+            createWeatherEffect(3, 'rain');
         });
-        
+
         window.addEventListener('resize', () => {
             document.getElementById('snow-container').innerHTML = '';
             createSnow();
