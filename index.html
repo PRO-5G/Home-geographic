@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Главная | Интерактивные карты</title>
+    <title>Interactive887 | Интерактивные карты</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -11,103 +12,387 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+        
         body {
-            background: #1a1a1a;
+            background: linear-gradient(135deg, #0a0a2a, #1a1a40, #0c2461);
             color: #fff;
             min-height: 100vh;
-            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
         }
+        
+        #snow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .snowflake {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
         .header {
             text-align: center;
-            padding: 40px 20px;
-            background: #252525;
-            border-radius: 20px;
-            margin-bottom: 40px;
-            border: 1px solid #444;
+            padding: 60px 20px;
+            margin-bottom: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1s ease-out;
         }
-        .header h1 {
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .logo {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #ffaf40, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .title {
             font-size: 3rem;
-            margin-bottom: 10px;
-            color: #ffaf40;
+            margin-bottom: 15px;
+            color: #fff;
         }
-        .header p {
+        
+        .subtitle {
+            font-size: 1.2rem;
             color: #aaa;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
             line-height: 1.6;
         }
-        .projects {
+        
+        .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            max-width: 1200px;
-            margin: 0 auto;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
         }
+        
         .project-card {
-            background: #252525;
-            border-radius: 15px;
-            padding: 25px;
-            border: 1px solid #444;
-            transition: transform 0.3s, box-shadow 0.3s;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border-radius: 25px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: cardAppear 0.6s forwards;
         }
+        
+        .project-card:nth-child(1) { animation-delay: 0.1s; }
+        .project-card:nth-child(2) { animation-delay: 0.2s; }
+        
+        @keyframes cardAppear {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
         .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
             border-color: #ffaf40;
+            background: rgba(255, 175, 64, 0.1);
         }
-        .project-card h2 {
-            color: #4CAF50;
-            margin-bottom: 15px;
-        }
-        .project-card p {
-            color: #ccc;
+        
+        .card-header {
+            display: flex;
+            align-items: center;
             margin-bottom: 20px;
         }
-        .project-link {
+        
+        .card-icon {
+            font-size: 2.5rem;
+            margin-right: 15px;
+            color: #ffaf40;
+        }
+        
+        .card-title {
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+        
+        .card-subtitle {
+            color: #ffaf40;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        
+        .card-description {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        
+        .card-features {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+        
+        .card-features li {
+            padding: 8px 0;
+            color: #aaa;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .card-features li:before {
+            content: "✓";
+            color: #4CAF50;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        .card-link {
             display: inline-block;
-            background: #444;
+            background: linear-gradient(to right, #4CAF50, #2E7D32);
             color: white;
-            padding: 10px 20px;
-            border-radius: 30px;
+            padding: 12px 25px;
+            border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
             transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
         }
-        .project-link:hover {
-            background: #666;
+        
+        .card-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3);
         }
+        
+        .card-link.secondary {
+            background: linear-gradient(to right, #2196F3, #0D47A1);
+            margin-top: 10px;
+        }
+        
         .footer {
             text-align: center;
+            padding: 50px 20px;
             margin-top: 60px;
-            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #ffaf40;
+        }
+        
+        .footer-text {
+            color: #aaa;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+        
+        .telegram-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(to right, #0088cc, #006699);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: 0.3s;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+        
+        .telegram-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0, 136, 204, 0.4);
+        }
+        
+        .version-info {
             color: #777;
-            border-top: 1px solid #333;
+            font-size: 0.9rem;
+            margin-top: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .title { font-size: 2.2rem; }
+            .subtitle { font-size: 1rem; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .card-title { font-size: 1.5rem; }
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Interactive887</h1>
-        <p>Это главная страница проекта с интерактивными картами. Здесь будут появляться все новые карты, которые мы создадим.</p>
+    <div id="snow-container"></div>
+    
+    <div class="container">
+        <header class="header floating">
+            <div class="logo">🌍</div>
+            <h1 class="title">Interactive887</h1>
+            <p class="subtitle">
+                Интерактивные географические проекты, объединяющие физические карты с цифровым контентом через QR-коды
+            </p>
+        </header>
+        
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="card-header">
+                    <div class="card-icon">🇦🇺</div>
+                    <div>
+                        <h2 class="card-title">Австралия v0.2</h2>
+                        <p class="card-subtitle">7 регионов • 21 фото • QR-карта</p>
+                    </div>
+                </div>
+                <p class="card-description">
+                    Полностью интерактивная карта Австралии с детальным описанием каждого региона, 
+                    фотогалереей и адаптивным дизайном.
+                </p>
+                <ul class="card-features">
+                    <li>Адаптив для телефонов и ПК</li>
+                    <li>Галерея с фото и видео</li>
+                    <li>Upd Log при первом посещении</li>
+                    <li>Кнопка "Домой" для навигации</li>
+                </ul>
+                <a href="https://pro-5g.github.io/australia887/" class="card-link" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Открыть карту
+                </a>
+            </div>
+            
+            <div class="project-card">
+                <div class="card-header">
+                    <div class="card-icon">🚀</div>
+                    <div>
+                        <h2 class="card-title">Следующий проект</h2>
+                        <p class="card-subtitle">В разработке • Скоро</p>
+                    </div>
+                </div>
+                <p class="card-description">
+                    Готовим новую интерактивную карту. Следи за обновлениями в Telegram-канале, 
+                    чтобы быть первым!
+                </p>
+                <ul class="card-features">
+                    <li>Новые интерактивные элементы</li>
+                    <li>Улучшенная галерея</li>
+                    <li>Дополнительный контент</li>
+                    <li>Сюрпризы для пользователей</li>
+                </ul>
+                <a href="https://t.me/+A6brPzN2cbcwMDdi" class="card-link secondary" target="_blank">
+                    <i class="fab fa-telegram"></i> Telegram-канал
+                </a>
+            </div>
+        </div>
+        
+        <footer class="footer">
+            <h2 class="footer-title">Присоединяйся к сообществу</h2>
+            <p class="footer-text">
+                Interactive887 — это постоянно развивающийся проект. 
+                Присоединяйся к Telegram-каналу, чтобы первым узнавать о новых картах, 
+                предлагать идеи и участвовать в обсуждении разработки.
+            </p>
+            
+            <a href="https://t.me/+A6brPzN2cbcwMDdi" class="telegram-btn" target="_blank">
+                <i class="fab fa-telegram"></i> Telegram-канал Interactive887
+            </a>
+            
+            <div class="version-info">
+                <p>Interactive887 • Версия сайта 2.0 • <span id="currentDate"></span></p>
+                <p>Сделано с ❤️ для любителей географии и технологий</p>
+            </div>
+        </footer>
     </div>
 
-    <div class="projects">
-        <div class="project-card">
-            <h2>🇦🇺 Австралия</h2>
-            <p>Интерактивная карта Австралии с точками по регионам. QR-код ведёт на эту карту с подробным описанием и фотографиями.</p>
-            <a class="project-link" href="https://pro-5g.github.io/australia887/" target="_blank">Открыть карту</a>
-        </div>
-        <!-- Сюда позже добавишь другие карты -->
-        <div class="project-card">
-            <h2>🌍 Новая карта</h2>
-            <p>Скоро здесь появится следующая интерактивная карта. Идеи принимаются!</p>
-            <a class="project-link" href="#">Скоро</a>
-        </div>
-    </div>
-
-    <div class="footer">
-        <p>Интерактивные карты проекта | Версия 1.0</p>
-    </div>
+    <script>
+        function createSnow() {
+            const container = document.getElementById('snow-container');
+            const snowCount = window.innerWidth < 768 ? 50 : 100;
+            
+            for(let i = 0; i < snowCount; i++) {
+                const flake = document.createElement('div');
+                flake.className = 'snowflake';
+                flake.style.width = flake.style.height = Math.random() * 6 + 2 + 'px';
+                flake.style.left = Math.random() * 100 + 'vw';
+                flake.style.opacity = Math.random() * 0.5 + 0.3;
+                flake.style.animationDuration = Math.random() * 5 + 3 + 's';
+                flake.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(flake);
+            }
+        }
+        
+        function updateDate() {
+            const now = new Date();
+            const options = { day: 'numeric', month: 'long', year: 'numeric' };
+            document.getElementById('currentDate').textContent = now.toLocaleDateString('ru-RU', options);
+        }
+        
+        function animateOnScroll() {
+            const cards = document.querySelectorAll('.project-card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            cards.forEach(card => observer.observe(card));
+        }
+        
+        window.addEventListener('load', () => {
+            createSnow();
+            updateDate();
+            animateOnScroll();
+        });
+        
+        window.addEventListener('resize', () => {
+            document.getElementById('snow-container').innerHTML = '';
+            createSnow();
+        });
+    </script>
 </body>
 </html>
